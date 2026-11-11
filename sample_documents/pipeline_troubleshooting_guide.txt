@@ -1,0 +1,44 @@
+DATA PIPELINE TROUBLESHOOTING GUIDE
+===================================
+
+Use this runbook when a scheduled data pipeline fails or produces wrong data.
+
+STEP 1 - CHECK THE ORCHESTRATOR
+Open the orchestrator (for example Airflow) and find the failed run. Note which task failed,
+the start time, and the error message in the task log. Check whether upstream tasks succeeded.
+
+STEP 2 - CLASSIFY THE FAILURE
+Most failures fall into one of these groups:
+  - Source issues: the source system was down, files arrived late, or credentials expired.
+  - Schema changes: a column was renamed, removed or changed type in the source.
+  - Data quality issues: nulls in a NOT NULL column, duplicates in a primary key,
+    or a failed dbt test (unique, not_null, accepted_values, relationships).
+  - Resource issues: warehouse timeout, out-of-memory, or query queueing.
+  - Code issues: a recent deployment introduced a SQL or Python bug.
+
+STEP 3 - REPRODUCE AND FIX
+Re-run the failed task in a development environment with the same inputs.
+For dbt failures, run "dbt build --select model_name" and read the compiled SQL in the target/ folder.
+For schema changes, update the staging model and any downstream tests.
+For resource issues, check query history for long-running queries and consider a larger warehouse
+or adding filters / clustering.
+
+STEP 4 - BACKFILL
+After the fix, backfill the missed time window. Make sure the pipeline is idempotent:
+running it twice for the same window must not create duplicates. Incremental models with a
+unique_key and merge strategy help with this.
+
+STEP 5 - PREVENT RECURRENCE
+  - Add a dbt test or data quality check that would have caught the issue.
+  - Add alerting (Slack or email) on task failure and on freshness checks (dbt source freshness).
+  - Write a short post-incident note: what failed, impact, root cause, fix, follow-up actions.
+
+COMMON QUICK CHECKS
+  - Did credentials or API tokens expire?
+  - Is the source file present and complete (row counts compared with yesterday)?
+  - Are there locks or long-running transactions on the target table?
+  - Was a Snowflake task left suspended after a deployment?
+
+ESCALATION
+If the issue affects a business-critical dashboard and cannot be fixed within 2 hours,
+notify the data platform on-call engineer and the dashboard owner.

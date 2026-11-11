@@ -1,0 +1,90 @@
+[
+  {
+    "id": "q01",
+    "question": "What is a DBT incremental model?",
+    "expected_answer": "A dbt model that after the first run only processes new or changed rows instead of rebuilding the whole table.",
+    "expected_keywords": ["new", "changed", "rows", "rebuild"],
+    "expected_source": "dbt_incremental_models.md",
+    "answerable": true
+  },
+  {
+    "id": "q02",
+    "question": "What does the is_incremental() macro do?",
+    "expected_answer": "It returns true only when the target table exists, the model is incremental and the run is not a full refresh, so the filter for new rows is applied.",
+    "expected_keywords": ["true", "table", "full refresh"],
+    "expected_source": "dbt_incremental_models.md",
+    "answerable": true
+  },
+  {
+    "id": "q03",
+    "question": "Explain Snowflake Streams and Tasks.",
+    "expected_answer": "A stream records change data capture information (inserts, updates, deletes) for a table; a task runs SQL on a schedule; together they build continuous ELT pipelines.",
+    "expected_keywords": ["change", "schedule", "pipeline"],
+    "expected_source": "snowflake_streams_and_tasks.md",
+    "answerable": true
+  },
+  {
+    "id": "q04",
+    "question": "Why is my newly created Snowflake task not running?",
+    "expected_answer": "Tasks are created suspended; you must run ALTER TASK ... RESUME.",
+    "expected_keywords": ["suspended", "resume"],
+    "expected_source": "snowflake_streams_and_tasks.md",
+    "answerable": true
+  },
+  {
+    "id": "q05",
+    "question": "How can I troubleshoot a failed data pipeline?",
+    "expected_answer": "Check the orchestrator logs, classify the failure (source, schema, data quality, resource, code), reproduce and fix, backfill idempotently, and add tests and alerting.",
+    "expected_keywords": ["orchestrator", "log", "backfill"],
+    "expected_source": "pipeline_troubleshooting_guide.txt",
+    "answerable": true
+  },
+  {
+    "id": "q06",
+    "question": "What is the purpose of a staging layer?",
+    "expected_answer": "To clean and standardize raw data one source table at a time: renaming columns, casting types, basic cleaning and deduplication, without joins or business logic.",
+    "expected_keywords": ["clean", "standard", "source"],
+    "expected_source": "data_warehouse_layers.md",
+    "answerable": true
+  },
+  {
+    "id": "q07",
+    "question": "Which lookback window does the fct_orders model use for late-arriving data?",
+    "expected_answer": "A 3-day lookback window on updated_at.",
+    "expected_keywords": ["3", "day"],
+    "expected_source": "fct_orders.sql",
+    "answerable": true
+  },
+  {
+    "id": "q08",
+    "question": "What causes duplicates in an incremental model?",
+    "expected_answer": "Usually a missing or non-unique unique_key.",
+    "expected_keywords": ["unique_key"],
+    "expected_source": "dbt_incremental_models.md",
+    "answerable": true
+  },
+  {
+    "id": "q11",
+    "question": "What source freshness thresholds should daily sources use?",
+    "expected_answer": "warn_after 12 hours and error_after 24 hours.",
+    "expected_keywords": ["12", "24"],
+    "expected_source": "data_quality_checklist.pdf",
+    "answerable": true
+  },
+  {
+    "id": "q09",
+    "question": "How do I configure autoscaling for a Kubernetes cluster?",
+    "expected_answer": "",
+    "expected_keywords": [],
+    "expected_source": null,
+    "answerable": false
+  },
+  {
+    "id": "q10",
+    "question": "What was our company's total revenue in 2024?",
+    "expected_answer": "",
+    "expected_keywords": [],
+    "expected_source": null,
+    "answerable": false
+  }
+]

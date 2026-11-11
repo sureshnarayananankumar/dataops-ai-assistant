@@ -1,0 +1,32 @@
+# --- Secrets (NEVER commit) ---
+.env
+*.env
+!.env.example
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# --- Local data (uploads + vector DB) ---
+backend/data/*
+!backend/data/.gitkeep
+
+# --- Evaluation outputs ---
+backend/app/evaluation/reports/
+
+# --- Node / React ---
+node_modules/
+frontend/dist/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Frontend local env ---
+frontend/.env.local
