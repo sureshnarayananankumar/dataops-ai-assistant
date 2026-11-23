@@ -5,6 +5,12 @@ import DocumentList from "./DocumentList.jsx";
 function StatusLine({ health }) {
   if (!health) return <p className="status muted">Checking backend…</p>;
   if (health.status !== "ok") return <p className="status error-text">● Backend offline</p>;
+  if (health.demo)
+    return (
+      <p className="status ok-text" title="TF-IDF retrieval + extractive answers, running in your browser">
+        ● Live demo · in-browser RAG, no API key
+      </p>
+    );
   if (!health.api_key_configured)
     return <p className="status warn-text">● API key missing in .env ({health.llm_provider})</p>;
   return (

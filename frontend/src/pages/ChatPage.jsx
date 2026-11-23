@@ -10,7 +10,7 @@ import { useCallback, useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar.jsx";
 import ChatWindow from "../components/ChatWindow.jsx";
 import ChatInput from "../components/ChatInput.jsx";
-import { askQuestion, deleteDocument, getHealth, listDocuments, uploadDocument } from "../services/api.js";
+import { DEMO_MODE, askQuestion, deleteDocument, getHealth, listDocuments, uploadDocument } from "../services/api.js";
 
 export default function ChatPage() {
   const [documents, setDocuments] = useState([]);
@@ -120,6 +120,19 @@ export default function ChatPage() {
             Clear chat
           </button>
         </header>
+
+        {DEMO_MODE && (
+          <div className="notice demo" role="note">
+            <span>
+              <strong>Live demo</strong> · runs entirely in your browser with the 6 sample documents preloaded. The same
+              agent loop (understand → retrieve → answer → evaluate → retry) uses TF-IDF search and extractive answers
+              instead of an LLM. Upload your own .md/.txt/.sql files to try it on them.{" "}
+              <a href="https://github.com/sureshnarayananankumar/dataops-ai-assistant" target="_blank" rel="noopener noreferrer">
+                View source
+              </a>
+            </span>
+          </div>
+        )}
 
         {notice && (
           <div className={`notice ${notice.type}`} role="status">

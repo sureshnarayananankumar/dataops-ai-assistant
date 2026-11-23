@@ -158,3 +158,7 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   .notice { margin: 0.75rem 1rem 0; }
   .topbar h1 { font-size: 1rem; }
 }
+
+/* Live demo banner */
+.notice.demo { background: linear-gradient(90deg, rgba(124, 58, 237, 0.12), rgba(8, 145, 178, 0.12)); border: 1px solid rgba(124, 58, 237, 0.35); }
+.notice.demo a { color: inherit; font-weight: 600; }

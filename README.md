@@ -5,6 +5,19 @@ The assistant retrieves the relevant passages with **RAG**, answers through a **
 checks its own answer against the sources, and shows exactly which documents it used. If the
 documents don't contain the answer, it says so instead of guessing.
 
+### ▶ [Try the live demo](https://sureshnarayananankumar.github.io/dataops-ai-assistant/)
+
+[![Live demo](https://img.shields.io/badge/▶_Live_demo-runs_in_your_browser-7c3aed?style=for-the-badge)](https://sureshnarayananankumar.github.io/dataops-ai-assistant/)
+
+The live demo runs entirely in your browser with the six files from `sample_documents/` preloaded, so there is
+no server and no API key. It follows the same agent loop (understand → retrieve → answer → evaluate → one retry)
+and returns the same JSON as the real `/chat` endpoint. The differences: retrieval uses TF-IDF instead of
+embeddings, answers are extractive (quoted sentences with `[n]` citations) instead of LLM-written, and the
+evaluation is a coverage check instead of an LLM judge. You can upload your own `.md`, `.txt` or `.sql` files.
+The demo code is in [`frontend/src/demo/`](frontend/src/demo/).
+
+<a href="https://sureshnarayananankumar.github.io/dataops-ai-assistant/"><img src="docs/screenshots/live-demo.png" alt="Live demo: grounded answer with citations and sources" width="90%"></a>
+
 ![Python](https://img.shields.io/badge/Python-3.11%2B-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688)
 ![LangGraph](https://img.shields.io/badge/LangGraph-agent-purple) ![ChromaDB](https://img.shields.io/badge/ChromaDB-vectors-orange)
 ![React](https://img.shields.io/badge/React-frontend-61dafb)
